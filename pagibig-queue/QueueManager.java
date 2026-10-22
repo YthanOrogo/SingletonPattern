@@ -1,17 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Centralized queue shared by ALL help desk stations (Singleton).
- * Every method is synchronized so the three stations and the ticket
- * kiosk can safely use it at the same time.
- */
 public class QueueManager {
 
     private static QueueManager instance;
 
-    private int lastIssued = 0;   // last queue number given to a visitor
-    private int nowServing = 0;   // queue number currently being served
+    private int lastIssued = 0;  
+    private int nowServing = 0;   
     private final List<QueueObserver> observers = new ArrayList<>();
 
     private QueueManager() { }
@@ -23,14 +18,12 @@ public class QueueManager {
         return instance;
     }
 
-    /** A visitor obtains a queue number from the central system. */
     public synchronized int issueNumber() {
         lastIssued++;
         notifyObservers("Issued queue number " + lastIssued);
         return lastIssued;
     }
 
-    /** A help desk station calls the next number in line. Returns -1 if nobody is waiting. */
     public synchronized int callNext(int stationId) {
         if (nowServing >= lastIssued) {
             return -1;
@@ -40,10 +33,6 @@ public class QueueManager {
         return nowServing;
     }
 
-    /**
-     * Reset the queue so the NEXT issued number is newNumber
-     * (e.g., reorganization or technical issues).
-     */
     public synchronized void reset(int stationId, int newNumber) {
         if (newNumber < 1) {
             throw new IllegalArgumentException("Queue number must be 1 or higher.");

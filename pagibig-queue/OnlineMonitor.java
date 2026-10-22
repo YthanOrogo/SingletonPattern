@@ -1,7 +1,3 @@
-/**
- * Online monitoring system: shows the current queue number in real time
- * to people watching remotely. Updates automatically via the observer pattern.
- */
 public class OnlineMonitor implements QueueObserver {
 
     public OnlineMonitor(QueueManager queue) {

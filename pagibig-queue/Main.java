@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-/** Console simulation of the Pag-ibig centralized queuing system. */
 public class Main {
 
     public static void main(String[] args) {
@@ -76,7 +75,7 @@ public class Main {
 
     private static int readInt(Scanner in) {
         while (!in.hasNextInt()) {
-            if (!in.hasNext()) return 5;   // end of input -> exit
+            if (!in.hasNext()) return 5; 
             in.next();
             System.out.print("Enter a valid number: ");
         }
